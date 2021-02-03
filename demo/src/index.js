@@ -3,18 +3,21 @@ import {HAuthClient, HAuthCore, HAuthServer} from 'hauth-lib';
 const client = new HAuthClient({
     loginUrl: 'http://localhost:4040',
     apiUrl: 'http://localhost:4200/v1',
-    organizationId: '8811164c-28f9-496f-9533-3bad28a5694e',
-    applicationId: '1e1f6495-8013-492a-9857-15839f6c2726'
+    organizationId: '1c8120ef-8b79-4667-a6b3-6231ddba1db7',
+    applicationId: '25d72652-d80f-4e56-8c6b-028050ba7b5e'
 });
 
 const server = new HAuthServer({
     apiUrl: 'http://localhost:4200/v1',
-    organizationId: '8811164c-28f9-496f-9533-3bad28a5694e',
-    applicationId: '1e1f6495-8013-492a-9857'
+    organizationId: '1c8120ef-8b79-4667-a6b3-6231ddba1db7',
+    applicationId: '25d72652-d80f-4e56-8c6b-028050ba7b5e'
 })
 
-const token = '&^6svfpl!*8897h^i#397741q5c3*^7*&cl0b34314l63m880!#780bo2o4z%52d#n^eheses7tif0@9m9650xz0*7003^9d4h^)l09*3!r8of0&%*k3$!cb$wj82)%1';
+const api = new HAuthCore.Api('http://localhost:3030/');
 
+const token = '&542n11&n(2*r0lt2j92#&4615(6(3@#k$$142w$^9%)26xp7!!#r@!qw8%^7w83itr122$&qio)y@&7$*%&!#9xcuoz@)5uay#391x^6xw)hw4#30ufv#$$l8#4bd0i';
+
+api.setAppToken(token);
 server.api.setAppToken(token);
 
 document.getElementById('login').addEventListener('click', (e) => {
@@ -36,10 +39,13 @@ document.getElementById('self').addEventListener('click', (e) => {
         .then(data => {
             console.log(data);
 
-            server.authenticateForApp()
-                .then((authed) => {
-                    console.log(authed);
-                })
+            api.http.get('user').then((res) => {
+                console.log(res);
+            })
+
+            api.http.get('app').then((res) => {
+                console.log(res);
+            })
 
             document.getElementById('user').innerHTML = (data.thumbnailUrl ? `<img src='${data.thumbnailUrl}' />` : '') + `<p>${data.name}</p>`;
         })

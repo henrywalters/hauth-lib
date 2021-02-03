@@ -1,6 +1,7 @@
 import { Api } from "./core/api";
 import { Tokens } from "./core/tokens";
 import { ApiResponse } from "./interfaces/apiResponse";
+import { IAppToken } from "./interfaces/appToken";
 import { IAuthSummary } from "./interfaces/authSummary";
 import { ClientConfig } from "./interfaces/clientConfig";
 import { ITokenSet } from "./interfaces/tokenSet";
@@ -62,7 +63,7 @@ export class HAuthClient {
         this.api.setBearerToken(tokens.accessToken);
     }
 
-    public async getSelf(): Promise<IUser> {
+    public async getSelf(): Promise<IUser | IAppToken> {
         return await this.api.getSelf();
     }
 

@@ -7,6 +7,8 @@ import { IUser } from "../interfaces/user";
 import { Tokens } from "./tokens";
 import HCore, {PathParameter} from 'hcore';
 import { PathParameterMap } from "hcore";
+import { IAppToken } from "../interfaces/appToken";
+import { Request } from 'express';
 
 export enum ApiEndpoints {
     Self = 'self',
@@ -44,6 +46,12 @@ export class Api {
         this.http.defaults.headers.common["Authorization"] = "Bearer " + token;
     }
 
+    public pipeAuth(req: Request) {
+        if (req.headers.hasOwnProperty('Authorization')) {
+            this.http.defaults.headers.common["Authorization"] = req.headers.Authorization;
+        }
+    }
+
     public getRoute(endpoint: ApiEndpoints, params: PathParameterMap = {}) {
         const path = new HCore.Path(endpoint, params);
         return path.path;
@@ -62,7 +70,7 @@ export class Api {
         throw new Error("Failed to refresh: " + res.error);
     }
 
-    public async getSelf(): Promise<IUser> {
+    public async getSelf(): Promise<IUser | IAppToken> {
         const res = (await this.http.get(ApiEndpoints.Self)).data;
 
         if (res.success === true) {

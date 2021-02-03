@@ -1,4 +1,5 @@
 import { Api } from "./core/api";
+import { IAppToken } from "./interfaces/appToken";
 import { IAuthSummary } from "./interfaces/authSummary";
 import { ServerConfig } from "./interfaces/serverConfig";
 import { IUser } from "./interfaces/user";
@@ -12,7 +13,7 @@ export class HAuthServer {
         this.api = new Api(this.config.apiUrl);
     }
 
-    public async getSelf(): Promise<IUser> {
+    public async getSelf(): Promise<IUser | IAppToken> {
         return await this.api.getSelf();
     }
 
