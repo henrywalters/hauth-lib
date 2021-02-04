@@ -1,15 +1,21 @@
-import { DynamicModule, Global, Module } from "@nestjs/common"
-import { ServerConfig } from "../interfaces/serverConfig";
-import { HAuthCoreModule } from "./hauth-core.module";
+import { Module } from "@nestjs/common"
+import { HAuthServer } from "../server";
 import { HAuthMiddleware } from "./hauth.middleware";
+import { HAuthService } from "./hauth.service";
 import { HAuthenticate } from "./hauthenticate.guard";
 
-@Module({})
+@Module({
+    providers: [
+        HAuthMiddleware,
+        HAuthenticate,
+        HAuthService,
+    ],
+    exports: [
+        HAuthService,
+        HAuthMiddleware,
+        HAuthenticate,
+    ]
+})
 export class HAuthModule {
-    static forRoot(options: ServerConfig): DynamicModule {
-        return {
-            module: HAuthModule,
-            imports: [HAuthCoreModule.forRoot(options)],
-        };
-    }
+ 
 }

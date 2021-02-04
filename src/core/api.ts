@@ -46,9 +46,11 @@ export class Api {
         this.http.defaults.headers.common["Authorization"] = "Bearer " + token;
     }
 
+    // Pipes the authorization header to the HTTP client for it to auth with
     public pipeAuth(req: Request) {
-        if (req.headers.hasOwnProperty('Authorization')) {
-            this.http.defaults.headers.common["Authorization"] = req.headers.Authorization;
+        console.log(req.headers);
+        if (req.headers.hasOwnProperty('authorization')) {
+            this.http.defaults.headers.common["Authorization"] = req.headers.authorization;
         }
     }
 

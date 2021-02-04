@@ -45,10 +45,11 @@ export class HAuthClient {
         })
     }
 
-    public async login(): Promise<void> {
+    public async login(): Promise<ITokenSet> {
         const res = await this.triggerLoginWindow();
         this.tokens.setTokens(res);
         this.api.setBearerToken(res.accessToken);
+        return res;
     }
 
     public async logout(): Promise<void> {

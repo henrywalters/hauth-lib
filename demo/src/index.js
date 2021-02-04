@@ -23,7 +23,7 @@ server.api.setAppToken(token);
 document.getElementById('login').addEventListener('click', (e) => {
     client.login()
         .then((data) => {
-            console.log(data);
+            api.setBearerToken(data.accessToken)
         })
         .catch((e) => {
             console.warn(e);
@@ -35,10 +35,8 @@ document.getElementById('logout').addEventListener('click', (e) => {
 })
 
 document.getElementById('self').addEventListener('click', (e) => {
-    server.getSelf()
-        .then(data => {
-            console.log(data);
-
+    //server.getSelf()
+    //    .then(data => {
             api.http.get('user').then((res) => {
                 console.log(res);
             })
@@ -48,8 +46,8 @@ document.getElementById('self').addEventListener('click', (e) => {
             })
 
             document.getElementById('user').innerHTML = (data.thumbnailUrl ? `<img src='${data.thumbnailUrl}' />` : '') + `<p>${data.name}</p>`;
-        })
-        .catch((e) => {
-            document.getElementById('user').innerHTML = '💩';
-        });
+    //    })
+    //    .catch((e) => {
+    //        document.getElementById('user').innerHTML = '💩';
+    //    });
 })
