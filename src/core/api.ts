@@ -4,11 +4,10 @@ import { IAuthSummary } from "../interfaces/authSummary";
 import { ITokenSet } from "../interfaces/tokenSet";
 const axios = require("axios").default;
 import { IUser } from "../interfaces/user";
-import { Tokens } from "./tokens";
-import HCore, {PathParameter} from 'hcore';
-import { PathParameterMap } from "hcore";
 import { IAppToken } from "../interfaces/appToken";
 import { Request } from 'express';
+import Path from "hcore/dist/path";
+import { PathParameterMap } from "hcore/dist/pathParameters";
 
 export enum ApiEndpoints {
     Self = 'self',
@@ -55,7 +54,7 @@ export class Api {
     }
 
     public getRoute(endpoint: ApiEndpoints, params: PathParameterMap = {}) {
-        const path = new HCore.Path(endpoint, params);
+        const path = new Path(endpoint, params);
         return path.path;
     }
 
