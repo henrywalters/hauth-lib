@@ -1,6 +1,6 @@
 {
   "name": "hauth-lib",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Library for interacting with the a HAuth server",
   "main": "dist/index.js",
   "scripts": {
